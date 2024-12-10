@@ -71,38 +71,25 @@ def update_order(order, menu_selection, menu_items):
     order (list): A list of dictionaries containing the menu item name, price,
                     and quantity ordered (updated as needed).
     """
-    # TODO: Check if the customer typed a number
-
-        # TODO: Convert the menu selection to an integer
-
-
-        # TODO: Check if the menu selection is in the menu items keys
-
-            # TODO: Store the item name as a variable
-
-
-            # TODO: Ask the customer for the quantity of the menu item
-            # TODO: Use the item name variable in the question
-
-
-            # TODO: Check if the quantity is a number, default to 1 if not
-
-
-            # TODO: Add a dictionary to the order list 
-            # TODO: The dictionary should include the item name, price, and quantity
-            # TODO: Use the following names for the dictionary keys:
-            # TODO: "Item name", "Price", "Quantity"
-
-        # TODO: When the user's input isn't valid, 
-        # TODO: tell the customer that their input isn't valid
-
-    # TODO: When the menu selection wasn't valid:
-    # TODO: Print the menu selection and 
-    # TODO: Tell the customer they didn't select a menu option
-
-
-    # TODO: Return the updated order
-
+    if menu_selection.isdigit():
+        menu_selection = int(menu_selection)
+        if menu_selection in menu_items.keys():
+            item_name = menu_items[menu_selection]["Item name"]
+            quantity = input(f"How many {item_name} would you like to order? ")
+            if not quantity.isdigit():
+                quantity = 1
+            else:
+                quantity = int(quantity)
+            order.append({
+                "Item name": item_name,
+                "Price": menu_items[menu_selection]["Price"],
+                "Quantity": quantity
+            })
+        else:
+            print(f"Sorry, the number you chose is not an option")
+    else:
+        print(f"Sorry, {menu_selection} is not a valid menu option.")
+    return order
 
 def print_itemized_receipt(receipt):
     """
