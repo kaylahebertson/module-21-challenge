@@ -27,63 +27,34 @@ def place_order(menu):
     # Launch the store and present a greeting to the customer
     print("Welcome to the Generic Take Out Restaurant.")
 
-    # TODO: Create a continuous while loop so customers can order multiple items
-
-        # TODO: Ask the customer what they want to order
-
-
+    place_order = True
+    while place_order:
+        print("What would you like to order?")
         # Create a variable for the menu item number
         i = 1
-
         # Print the menu header
         print_menu_heading()
 
-        # TODO: Loop through the menu dictionary
-        # TODO: Extract the food category and the options for each category
-
-            # TODO: Loop through the options for each food category
-            # TODO: Extract the meal and the price for each option
-
+        for food_category, options in menu.items():
+                for meal, price in options.items():
                 # Print the menu item number, food category, meal, and price
-                # TODO: Only if you used different variable names
-                # TODO: Update the variable names in the following function
                 print_menu_line(i, food_category, meal, price)
-
                 # Update the menu selection number
                 i += 1
 
-        # TODO: Ask customer to input menu item number
+        menu_selection = input("Enter the number of the item you would like to order: ")
 
+        order = update_order(order, menu_selection, menu_items)
 
-        # TODO: Update the order list using the update_order function
-        # TODO: Send the order list, menu selection, and menu items as arguments
+        order_more = input("Would you like to order anything else? (y/n): ")
 
+        if order_more.lower() == 'n':
+            print("Thank you for your order!")
+            price_list = [item["Price"] * item["Quantity"] for item in order]
+            order_total = round(sum(price_list), 2)
+            place_order = False
 
-        # TODO: Ask the customer if they would like to order anything else
-        # TODO: Let the customer know if they should type 'n' or 'N' to quit
-
-
-        # TODO: Write a conditional statement that checks the user's input
-        # TODO: The conditional statement should check for 'n' or 'N'
-
-            # TODO: Write a print statement that thanks the customer for their order
-
-
-            # TODO: Use list comprehension to create a list called prices_list,
-            # TODO: which contains the total prices for each item in the order list:
-            # TODO: The total price for each item should multiply the price by quantity
-
-
-            # TODO: Create an order_total from the prices list using sum()
-            # TODO: Round the prices to 2 decimal places.
-
-
-            # TODO: Exit the ordering loop
-            # TODO: Either use a break statement or set the condition to False
-
-
-    # TODO: Return the order list and the order total
-
+    return order, order_total
 
 def update_order(order, menu_selection, menu_items):
     """
